@@ -4,6 +4,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 
 import androidx.compose.runtime.Composable
@@ -28,7 +30,7 @@ import com.deeppowercrew.weatherme.ui.theme.BlueLight
 fun MainScreen() {
     Image(
         painter = painterResource(id = R.drawable.backgrnd),
-        contentDescription = "im1",
+        contentDescription = "background",
         modifier = Modifier
             .fillMaxSize()
             .alpha(0.5f),
@@ -56,18 +58,77 @@ fun MainScreen() {
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text( modifier = Modifier.padding(top = 8.dp, start = 8.dp),
+                    Text(
+                        modifier = Modifier.padding(top = 8.dp, start = 8.dp),
                         text = "08 aug 2022",
                         style = TextStyle(fontStyle = FontStyle.Italic, fontSize = 18.sp),
                         color = Color.White
 
                     )
-                    
-                    AsyncImage(model = "https://cdn.weatherapi.com/weather/64x64/day/116.png",
+
+                    AsyncImage(
+                        model = "https://cdn.weatherapi.com/weather/64x64/day/116.png",
                         contentDescription = "weather_icon",
-                    modifier = Modifier.padding(top = 4.dp, end = 8.dp).size(40.dp))
+                        modifier = Modifier
+                            .padding(top = 4.dp, end = 8.dp)
+                            .size(40.dp)
+                    )
                 }
 
+                Text(
+                    text = "Tokyo",
+                    style = TextStyle(fontStyle = FontStyle.Normal, fontSize = 28.sp),
+                    color = Color.White
+
+                )
+                Text(
+                    text = "24 C",
+                    style = TextStyle(fontStyle = FontStyle.Normal, fontSize = 64.sp),
+                    color = Color.White
+
+                )
+                Text(
+                    text = "sunny",
+                    style = TextStyle(fontStyle = FontStyle.Normal, fontSize = 16.sp),
+                    color = Color.White
+
+                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+
+
+                    IconButton(modifier = Modifier.padding(start = 8.dp),
+                        onClick = { /*TODO*/ }) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_search),
+                            contentDescription = "image_btn",
+                            tint = Color.White
+                        )
+                    }
+
+
+                    Text(
+                        modifier = Modifier.padding(top = 8.dp, start = 8.dp),
+                        text = "8  C / - 4  C",
+                        style = TextStyle(fontStyle = FontStyle.Normal, fontSize = 18.sp),
+                        color = Color.White
+
+                    )
+
+                    IconButton(
+                        modifier = Modifier.padding(end = 8.dp),
+                        onClick = { /*TODO*/ }) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_update_weather_info),
+                            contentDescription = "image_update",
+                            tint = Color.White
+                        )
+                    }
+
+
+                }
             }
 
         }
