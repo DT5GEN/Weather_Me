@@ -1,20 +1,14 @@
 package com.deeppowercrew.weatherme.screens
 
-import androidx.compose.foundation.Image
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.Icon
-import androidx.compose.material.IconButton
-import androidx.compose.material.Text
-
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
@@ -24,21 +18,14 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.deeppowercrew.weatherme.R
 import com.deeppowercrew.weatherme.ui.theme.BlueLight
+import com.deeppowercrew.weatherme.ui.theme.BlueUltraLight
 
 @Preview(showBackground = true)
 @Composable
-fun MainScreen() {
-    Image(
-        painter = painterResource(id = R.drawable.backgrnd),
-        contentDescription = "background",
-        modifier = Modifier
-            .fillMaxSize()
-            .alpha(0.5f),
-        contentScale = ContentScale.Crop
-    )
+fun MainCard() {
+
     Column(
         modifier = Modifier
-            .fillMaxSize()
             .padding(5.dp),
 
         ) {
@@ -131,6 +118,30 @@ fun MainScreen() {
                 }
             }
 
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun TableLayout() {
+    val tabList = listOf("HOURS", "DAYS")
+    Column(modifier = Modifier.padding(start = 4.dp, end = 4.dp).clip(RoundedCornerShape(4.dp))) {
+
+        TabRow(
+            selectedTabIndex = 0,
+            indicator = {},
+            backgroundColor = BlueUltraLight
+        ) {
+            tabList.forEachIndexed { indexElement, text ->
+                Tab(selected = false, onClick = { },
+                    text = {
+                        Text(text = text, style = TextStyle(Color.White, fontSize = 24.sp, fontStyle = FontStyle.Normal))
+                    }
+
+
+                )
+            }
         }
     }
 }
