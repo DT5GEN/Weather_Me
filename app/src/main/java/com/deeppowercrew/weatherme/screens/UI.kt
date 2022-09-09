@@ -12,17 +12,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import com.deeppowercrew.weatherme.data.WeatherModel
 import com.deeppowercrew.weatherme.ui.theme.BlueUltraLight
 
-@Preview(showBackground = true)
 @Composable
-fun ListItem() {
+fun ListItem(item: WeatherModel) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(top = 4.dp),
         backgroundColor = BlueUltraLight,
-        elevation = 2.dp,
+        elevation = 0.dp,
         shape = RoundedCornerShape(4.dp)
     ) {
         Row(
@@ -33,15 +33,17 @@ fun ListItem() {
         ) {
 
             Column(modifier = Modifier.padding(start = 8.dp, top = 4.dp, bottom = 4.dp)) {
-                Text(text = "12:00")
+                Text(text = item.timeUpdate)
                 Text(
-                    text = "sunny",
+                    text = item.conditionText,
                     color = Color.White
                 )
             }
 
             Text(
-                text = "33 C",
+                text = item.currentTemp.ifEmpty {
+                        " ${item.maxTemp} C / ${item.minTemp} C"
+                },
                 color = Color.White,
                 fontSize = 24.sp
 
@@ -49,7 +51,7 @@ fun ListItem() {
 
 
             AsyncImage(
-                model = "https://cdn.weatherapi.com/weather/64x64/day/116.png",
+                model ="https:${item.conditionIconUrl}",
                 contentDescription = "weather_icon",
                 modifier = Modifier
                     .padding(top = 4.dp, end = 8.dp)

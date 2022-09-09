@@ -3,6 +3,7 @@ package com.deeppowercrew.weatherme.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -19,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.deeppowercrew.weatherme.R
+import com.deeppowercrew.weatherme.data.WeatherModel
 import com.deeppowercrew.weatherme.ui.theme.BlueLight
 import com.deeppowercrew.weatherme.ui.theme.BlueUltraLight
 import com.google.accompanist.pager.ExperimentalPagerApi
@@ -182,9 +184,34 @@ fun TableLayout() {
 
         ) { indexPage ->
             LazyColumn(Modifier.fillMaxSize()) {
-                items(15) {
-                    ListItem()
-                }
+             itemsIndexed(
+                 listOf(
+                     WeatherModel(
+                         "Tokyo",
+                         "10:00",
+                         "22 C",
+                         "rainy",
+                         "//cdn.weatherapi.com/weather/64x64/day/116.png",
+                         "",
+                         "",
+                         ""
+                     ),
+                     WeatherModel(
+                         "Tokyo",
+                         "09/09/2022",
+                         "",
+                         "sunny",
+                         "//cdn.weatherapi.com/weather/64x64/day/116.png",
+                         "30",
+                         "12",
+                         "blablabla"
+                     )
+
+                 )
+             ){
+                 _, item ->
+                 ListItem(item)
+             }
             }
         }
 

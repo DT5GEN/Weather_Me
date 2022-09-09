@@ -1,5 +1,6 @@
 package com.deeppowercrew.weatherme
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -13,6 +14,7 @@ import androidx.compose.ui.res.painterResource
 import com.deeppowercrew.weatherme.screens.MainCard
 import com.deeppowercrew.weatherme.screens.TableLayout
 import com.deeppowercrew.weatherme.ui.theme.WeatherMeTheme
+const val API_KEY = "9c4dca2eee744d2f9ba134332220209"
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,3 +39,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+private fun getWeatherData(city:String, context: Context){
+
+}
