@@ -53,7 +53,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-private fun getWeatherData(city: String, context: Context, daysList: MutableState<List<WeatherModel>>) {
+ fun getWeatherData(city: String, context: Context, daysList: MutableState<List<WeatherModel>>) {
     val url =
         "https://api.weatherapi.com/v1/forecast.json" + "?key=$API_KEY&" + "q=$city" + "&days=" +
                 "7" +

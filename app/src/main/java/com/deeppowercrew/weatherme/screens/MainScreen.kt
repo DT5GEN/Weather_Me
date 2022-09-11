@@ -16,7 +16,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -30,7 +29,6 @@ import com.google.accompanist.pager.pagerTabIndicatorOffset
 import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.launch
 
-@Preview(showBackground = true)
 @Composable
 fun MainCard() {
 
@@ -97,7 +95,13 @@ fun MainCard() {
 
 
                     IconButton(modifier = Modifier.padding(start = 8.dp),
-                        onClick = { /*TODO*/ }) {
+                        onClick = {
+
+//                            getWeatherData("Tokyo",
+//                            context,
+//                                )
+
+                        }) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_search),
                             contentDescription = "image_btn",
