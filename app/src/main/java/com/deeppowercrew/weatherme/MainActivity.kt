@@ -53,7 +53,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 
- fun getWeatherData(city: String, context: Context, daysList: MutableState<List<WeatherModel>>) {
+fun getWeatherData(city: String, context: Context, daysList: MutableState<List<WeatherModel>>) {
     val url =
         "https://api.weatherapi.com/v1/forecast.json" + "?key=$API_KEY&" + "q=$city" + "&days=" +
                 "7" +
@@ -65,8 +65,8 @@ class MainActivity : ComponentActivity() {
             val list = getWeatherByDays(response)
             daysList.value = list
             Log.d("MyLog", "Volley Error $response")
-        }, {
-                error -> Log.d("MyLog", "Volley Error $error")
+        }, { error ->
+            Log.d("MyLog", "Volley Error $error")
 
         }
     )
@@ -75,13 +75,13 @@ class MainActivity : ComponentActivity() {
     queue.add(stringRequest)
 }
 
-private fun getWeatherByDays(responseWeatherDays:String) : List<WeatherModel>{
+private fun getWeatherByDays(responseWeatherDays: String): List<WeatherModel> {
     if (responseWeatherDays.isEmpty()) return listOf()
     val list = ArrayList<WeatherModel>()
     val mainObject = JSONObject(responseWeatherDays)
     val city = mainObject.getJSONObject("location").getString("name")
     val days = mainObject.getJSONObject("forecast").getJSONArray("forecastday")
-    for (i in 0 until days.length()){
+    for (i in 0 until days.length()) {
         val itemDay = days[i] as JSONObject
         list.add(
             WeatherModel(
@@ -97,11 +97,11 @@ private fun getWeatherByDays(responseWeatherDays:String) : List<WeatherModel>{
             )
         )
     }
-    list[0] =  list[0].copy(
+    list[0] = list[0].copy(
 
         timeUpdate = mainObject.getJSONObject("current").getString("last_updated"),
         currentTemp = mainObject.getJSONObject("current").getString("temp_c")
 
     )
-return  list
+    return list
 }

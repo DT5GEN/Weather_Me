@@ -188,12 +188,11 @@ fun TableLayout(daysList: MutableState<List<WeatherModel>>) {
 
         ) { indexPage ->
             LazyColumn(Modifier.fillMaxSize()) {
-             itemsIndexed(
-                daysList.value
-             ){
-                 _, item ->
-                 ListItem(item)
-             }
+                itemsIndexed(
+                    daysList.value
+                ) { _, item ->
+                    ListItem(item)
+                }
             }
         }
 
