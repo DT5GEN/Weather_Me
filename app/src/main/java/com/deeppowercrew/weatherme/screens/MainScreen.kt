@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -15,7 +16,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -29,9 +29,8 @@ import com.google.accompanist.pager.pagerTabIndicatorOffset
 import com.google.accompanist.pager.rememberPagerState
 import kotlinx.coroutines.launch
 
-@Preview(showBackground = true)
 @Composable
-fun MainCard() {
+fun MainCard(currentDay:MutableState<WeatherModel>) {
 
     Column(
         modifier = Modifier
@@ -56,14 +55,14 @@ fun MainCard() {
                 ) {
                     Text(
                         modifier = Modifier.padding(top = 8.dp, start = 8.dp),
-                        text = "08 aug 2022",
+                        text = currentDay.value.timeUpdate,
                         style = TextStyle(fontStyle = FontStyle.Italic, fontSize = 18.sp),
                         color = Color.White
 
                     )
 
                     AsyncImage(
-                        model = "https://cdn.weatherapi.com/weather/64x64/day/116.png",
+                        model = "https:" + currentDay.value.conditionIconUrl,
                         contentDescription = "weather_icon",
                         modifier = Modifier
                             .padding(top = 4.dp, end = 8.dp)
@@ -72,19 +71,19 @@ fun MainCard() {
                 }
 
                 Text(
-                    text = "Tokyo",
+                    text = currentDay.value.city,
                     style = TextStyle(fontStyle = FontStyle.Normal, fontSize = 28.sp),
                     color = Color.White
 
                 )
                 Text(
-                    text = "24 C",
+                    text = currentDay.value.currentTemp.toFloat().toInt().toString() + "°C",
                     style = TextStyle(fontStyle = FontStyle.Normal, fontSize = 64.sp),
                     color = Color.White
 
                 )
                 Text(
-                    text = "sunny",
+                    text = currentDay.value.conditionText,
                     style = TextStyle(fontStyle = FontStyle.Normal, fontSize = 16.sp),
                     color = Color.White
 
@@ -96,7 +95,13 @@ fun MainCard() {
 
 
                     IconButton(modifier = Modifier.padding(start = 8.dp),
-                        onClick = { /*TODO*/ }) {
+                        onClick = {
+
+//                            getWeatherData("Tokyo",
+//                            context,
+//                                )
+
+                        }) {
                         Icon(
                             painter = painterResource(id = R.drawable.ic_search),
                             contentDescription = "image_btn",
@@ -107,7 +112,7 @@ fun MainCard() {
 
                     Text(
                         modifier = Modifier.padding(top = 8.dp, start = 8.dp),
-                        text = "8  C / - 4  C",
+                        text = "${currentDay.value.minTemp.toFloat().toInt()}°С / ${currentDay.value.maxTemp.toFloat().toInt()}°C",
                         style = TextStyle(fontStyle = FontStyle.Normal, fontSize = 18.sp),
                         color = Color.White
 
@@ -132,9 +137,8 @@ fun MainCard() {
 }
 
 @OptIn(ExperimentalPagerApi::class)
-@Preview(showBackground = true)
 @Composable
-fun TableLayout() {
+fun TableLayout(daysList: MutableState<List<WeatherModel>>) {
     val tabList = listOf("HOURS", "DAYS")
     val pagerState = rememberPagerState()
     val tabIndex = pagerState.currentPage
@@ -184,34 +188,11 @@ fun TableLayout() {
 
         ) { indexPage ->
             LazyColumn(Modifier.fillMaxSize()) {
-             itemsIndexed(
-                 listOf(
-                     WeatherModel(
-                         "Tokyo",
-                         "10:00",
-                         "22 C",
-                         "rainy",
-                         "//cdn.weatherapi.com/weather/64x64/day/116.png",
-                         "",
-                         "",
-                         ""
-                     ),
-                     WeatherModel(
-                         "Tokyo",
-                         "09/09/2022",
-                         "",
-                         "sunny",
-                         "//cdn.weatherapi.com/weather/64x64/day/116.png",
-                         "30",
-                         "12",
-                         "blablabla"
-                     )
-
-                 )
-             ){
-                 _, item ->
-                 ListItem(item)
-             }
+                itemsIndexed(
+                    daysList.value
+                ) { _, item ->
+                    ListItem(item)
+                }
             }
         }
 

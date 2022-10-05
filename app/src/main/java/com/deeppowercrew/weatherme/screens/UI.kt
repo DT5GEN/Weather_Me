@@ -8,7 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
@@ -42,7 +41,7 @@ fun ListItem(item: WeatherModel) {
 
             Text(
                 text = item.currentTemp.ifEmpty {
-                        " ${item.maxTemp} C / ${item.minTemp} C"
+                    " ${item.maxTemp} C / ${item.minTemp} C"
                 },
                 color = Color.White,
                 fontSize = 24.sp
@@ -51,7 +50,7 @@ fun ListItem(item: WeatherModel) {
 
 
             AsyncImage(
-                model ="https:${item.conditionIconUrl}",
+                model = "https:${item.conditionIconUrl}",
                 contentDescription = "weather_icon",
                 modifier = Modifier
                     .padding(top = 4.dp, end = 8.dp)
