@@ -24,7 +24,7 @@ import com.deeppowercrew.weatherme.screens.TableLayout
 import com.deeppowercrew.weatherme.ui.theme.WeatherMeTheme
 import org.json.JSONObject
 
-const val API_KEY = "9c4dca2eee744d2f9ba134332220209"
+const val API_KEY = "71905cf4f2ab40da9e8142341222207"
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +34,22 @@ class MainActivity : ComponentActivity() {
                 val dayzList = remember {
                     mutableStateOf(listOf<WeatherModel>())
                 }
-                getWeatherData("Yokohama", this, dayzList)
+                val currentDay = remember {
+                    mutableStateOf(
+                        WeatherModel(
+
+                            "",
+                            "",
+                            "10.0",
+                            "",
+                            "",
+                            "10.0",
+                            "10.0",
+                            ""
+                        )
+                    )
+                }
+                getWeatherData("Kioto", this, dayzList, currentDay)
                 Image(
                     painter = painterResource(id = R.drawable.backgrnd),
                     contentDescription = "background",
@@ -44,7 +59,7 @@ class MainActivity : ComponentActivity() {
                     contentScale = ContentScale.Crop
                 )
                 Column {
-                    MainCard()
+                    MainCard(currentDay)
                     TableLayout(dayzList)
                 }
             }
@@ -53,7 +68,12 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-fun getWeatherData(city: String, context: Context, daysList: MutableState<List<WeatherModel>>) {
+fun getWeatherData(
+    city: String,
+    context: Context,
+    daysList: MutableState<List<WeatherModel>>,
+    currentDay: MutableState<WeatherModel>
+) {
     val url =
         "https://api.weatherapi.com/v1/forecast.json" + "?key=$API_KEY&" + "q=$city" + "&days=" +
                 "7" +
@@ -63,6 +83,7 @@ fun getWeatherData(city: String, context: Context, daysList: MutableState<List<W
         Request.Method.GET,
         url, { response ->
             val list = getWeatherByDays(response)
+            currentDay.value = list[0]
             daysList.value = list
             Log.d("MyLog", "Volley Error $response")
         }, { error ->
